@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { environment } from './../../environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { WeatherInfoComponent } from '../weather-info/weather-info.component';
+import { CommonModule } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
 
 const API_URL = environment.API_URL;
 const API_KEY = environment.API_KEY;
@@ -11,7 +14,8 @@ const API_ICON_EXT =  '@2x.png';
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  standalone: false,
+  standalone: true,
+  imports: [CommonModule, IonicModule, WeatherInfoComponent]
 })
 export class HomePage {
   response_main: any
@@ -41,7 +45,6 @@ export class HomePage {
   forecastForCity(){
     this.httpClient.get(`${API_URL}weather?q=${"Polešovice"}&appid=${API_KEY}&units=metric&lang=cz`)
     .subscribe((response) => {
-      console.log(response);
       this.response_main = response['main' as keyof typeof response];
       this.response_wind = response['wind' as keyof typeof response];
       this.response_weather = response['weather' as keyof typeof response];
@@ -63,6 +66,9 @@ export class HomePage {
       this.wind_deg = this.response_wind.deg;
       this.wind_direction = this.getWindDirection(this.wind_deg);
      
+      console.log(response);
+      console.log(this.response_main);
+
       console.log("Město: " + this.cityName);
       console.log("Teplota: " + this.temp + " °C");
       console.log("Počasí: " + this.main);
@@ -101,6 +107,4 @@ export class HomePage {
       return '';
     }
   }
-
-
 }

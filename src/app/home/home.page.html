@@ -13,23 +13,23 @@
 
   <ion-card>
     <ion-item lines="none">
-      <p>Dnešní předpověď</p>
+      <p>Aktuální počasí</p>
       <ion-label slot="end">{{todayDate | date: "EEE dd MMM"}}</ion-label>
     </ion-item>
-    <ion-item>
-      <span>
-        {{response_main?.temp.toFixed(0)}} °C
-      </span>
-    </ion-item>
-
-    <ion-item>
-      <ion-img src={{icon_url}}></ion-img>
-    </ion-item>
-
-    <ion-item>
-      <ion-icon name="location"></ion-icon>
-      <span>{{cityName}}</span>
-    </ion-item>
+      <app-weather-info
+        [temp]="temp"
+        [icon_url]="icon_url"
+        [description]="description"
+        [pressure]="pressure"
+        [humidity]="humidity"
+        [wind_speed]="wind_speed"
+        [wind_deg]="wind_deg"
+        [wind_direction]="wind_direction"
+        [cityName]="cityName">
+      </app-weather-info>
   </ion-card>
+
+
+
     
 </ion-content>
