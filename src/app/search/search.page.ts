@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, ViewChild} from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component, ViewChild} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from './../../environments/environment';
 import { WeatherInfoComponent } from '../weather-info/weather-info.component';
@@ -22,12 +22,14 @@ export class SearchPage implements AfterViewChecked {
   showWeatherInfo: boolean = false;
   weatherData: any;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private cdr: ChangeDetectorRef) {
+  }
 
   ngAfterViewChecked(): void {
     if (this.weatherData && this.weatherInfoComponent) {
       this.weatherInfoComponent.weatherData(this.weatherData);
       this.weatherData = null;  // Reset weatherData to prevent multiple calls
+      this.cdr.detectChanges(); // Manually trigger change detection
     }
   }
 
@@ -46,5 +48,15 @@ export class SearchPage implements AfterViewChecked {
         console.error('Chyba při vyhledávání města:', error);
         this.showWeatherInfo = false;
       });
+  }
+
+  addToFavorites() {
+    console.log(`Přidat ${this.cityName} do oblíbených`);
+  }
+
+  setHomeCity() {
+    console.log(`Nastavit ${this.cityName} jako domovské město`);
+    localStorage.setItem('homeCity', this.cityName);
+    console.log(localStorage.getItem('homeCity'));
   }
 }

@@ -19,6 +19,14 @@
 
   <ng-container *ngIf="showWeatherInfo">
     <app-weather-info></app-weather-info>
+    <ion-item>
+      <ion-button (click)="addToFavorites()">
+        <ion-icon slot="icon-only" name="star"></ion-icon>
+      </ion-button>
+      <ion-button (click)="setHomeCity()">
+        <ion-icon slot="icon-only" name="home"></ion-icon>
+      </ion-button>
+    </ion-item>
   </ng-container>
 
 </ion-content>

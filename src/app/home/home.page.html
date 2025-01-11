@@ -13,20 +13,9 @@
 
   <ion-card>
     <ion-item lines="none">
-      <p>Aktuální počasí</p>
-      <ion-label slot="end">{{todayDate | date: "EEE dd MMM"}}</ion-label>
+      <p>Domovské město</p>
     </ion-item>
-      <app-weather-info
-        [temp]="temp"
-        [icon_url]="icon_url"
-        [description]="description"
-        [pressure]="pressure"
-        [humidity]="humidity"
-        [wind_speed]="wind_speed"
-        [wind_deg]="wind_deg"
-        [wind_direction]="wind_direction"
-        [cityName]="cityName">
-      </app-weather-info>
+    <app-weather-info></app-weather-info>
   </ion-card>
 
 
