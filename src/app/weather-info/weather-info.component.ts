@@ -10,37 +10,58 @@ import { IonicModule } from '@ionic/angular';
     imports: [CommonModule, IonicModule]
 })
 export class WeatherInfoComponent {
-    @Input() icon_url: string | undefined;
-    @Input() description: string | undefined;
-    @Input() pressure: number | undefined;
-    @Input() humidity: number | undefined;
-    @Input() wind_speed: number | undefined;
-    @Input() wind_deg: number | undefined;
-    @Input() wind_direction: string | undefined;
-    @Input() cityName: string | undefined;
-    @Input() temp: number | undefined;
-    @Input() feels_like: number | undefined;
-    @Input() temp_min: number | undefined;
-    @Input() temp_max: number | undefined;
+    @Input() weatherData: any;
 
-    weatherData(response: any) {
-        const API_ICON_URL = 'https://openweathermap.org/img/wn/';
-        const API_ICON_EXT = '@2x.png';
-
-        this.cityName = response.name;
-        this.temp = Math.round(response.main.temp);
-        this.description = response.weather[0].description;
-        this.icon_url = `${API_ICON_URL}${response.weather[0].icon}${API_ICON_EXT}`;
-        this.feels_like = response.main.feels_like;
-        this.temp_min = Math.round(response.main.temp_min);
-        this.temp_max = Math.round(response.main.temp_max);
-        this.pressure = response.main.pressure;
-        this.humidity = response.main.humidity;
-        this.wind_speed = Math.round(response.wind.speed);
-        this.wind_deg = response.wind.deg;
-        if (this.wind_deg !== undefined) {
-            this.wind_direction = this.getWindDirection(this.wind_deg);
-        }
+    get icon_url(): string {
+      return `https://openweathermap.org/img/wn/${this.weatherData?.weather[0].icon}@2x.png`;
+    }
+  
+    get description(): string {
+      return this.weatherData?.weather[0].description;
+    }
+  
+    get pressure(): number {
+      return this.weatherData?.main.pressure;
+    }
+  
+    get humidity(): number {
+      return this.weatherData?.main.humidity;
+    }
+  
+    get wind_speed(): number {
+      return this.weatherData?.wind.speed;
+    }
+  
+    get wind_deg(): number {
+      return this.weatherData?.wind.deg;
+    }
+  
+    get wind_direction(): string {
+      return this.getWindDirection(this.weatherData?.wind.deg);
+    }
+  
+    get cityName(): string {
+      return this.weatherData?.name;
+    }
+  
+    get temp(): number {
+      return Math.round(this.weatherData?.main.temp);
+    }
+  
+    get feels_like(): number {
+      return Math.round(this.weatherData?.main.feels_like);
+    }
+  
+    get temp_min(): number {
+      return Math.round(this.weatherData?.main.temp_min);
+    }
+  
+    get temp_max(): number {
+      return Math.round(this.weatherData?.main.temp_max);
+    }
+  
+    get main(): string {
+      return this.weatherData?.weather[0].main;
     }
 
     getWindDirection(deg: number): string {

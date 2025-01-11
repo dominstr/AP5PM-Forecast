@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { environment } from './../../environments/environment';
+import { Router } from '@angular/router';
 
 const API_URL = environment.API_URL;
 const API_KEY = environment.API_KEY;
@@ -20,7 +21,7 @@ export class FavouritesPage {
   favouriteCities: string[] = [];
   weatherDetails: any[] = [];
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private router: Router) { }
 
   ionViewWillEnter() {
     this.loadFavouriteCities();
@@ -55,4 +56,11 @@ export class FavouritesPage {
     });
   }
 
+  setHomeCity(city: string) {
+    localStorage.setItem('homeCity', city);
+  }
+
+  openCityWeather(city: string) {
+    this.router.navigate(['/tabs/city-details', { city: city }]);
+  }
 }
