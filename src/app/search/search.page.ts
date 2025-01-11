@@ -18,7 +18,8 @@ const API_KEY = environment.API_KEY;
 })
 export class SearchPage implements AfterViewChecked {
   @ViewChild(WeatherInfoComponent) weatherInfoComponent!: WeatherInfoComponent;
-  cityName: string = '';
+  searchCityName: string = '';
+  responseCityName: string = '';
   showWeatherInfo: boolean = false;
   weatherData: any;
 
@@ -34,16 +35,17 @@ export class SearchPage implements AfterViewChecked {
   }
 
   searchCity() {
-    if (this.cityName.trim() === '') {
+    if (this.searchCityName.trim() === '') {
       console.log("Zadej název města");
       return;
     }
 
-    this.httpClient.get(`${API_URL}weather?q=${this.cityName}&appid=${API_KEY}&units=metric&lang=cz`)
+    this.httpClient.get(`${API_URL}weather?q=${this.searchCityName}&appid=${API_KEY}&units=metric&lang=cz`)
       .subscribe((response) => {
         console.log(response);
         this.weatherData = response;
         this.showWeatherInfo = true;
+        this.responseCityName = this.weatherData.name;
       }, (error) => {
         console.error('Chyba při vyhledávání města:', error);
         this.showWeatherInfo = false;
@@ -51,12 +53,18 @@ export class SearchPage implements AfterViewChecked {
   }
 
   addToFavorites() {
-    console.log(`Přidat ${this.cityName} do oblíbených`);
+    let favourites = localStorage.getItem('favouriteCities');
+    let favouriteCities = favourites ? JSON.parse(favourites) : [];
+    if (!favouriteCities.includes(this.responseCityName)) {
+      favouriteCities.push(this.responseCityName);
+      localStorage.setItem('favouriteCities', JSON.stringify(favouriteCities));
+      console.log(`Přidat ${this.responseCityName} do oblíbených`);
+    }
   }
 
   setHomeCity() {
-    console.log(`Nastavit ${this.cityName} jako domovské město`);
-    localStorage.setItem('homeCity', this.cityName);
+    console.log(`Nastavit ${this.responseCityName} jako domovské město`);
+    localStorage.setItem('homeCity', this.responseCityName);
     console.log(localStorage.getItem('homeCity'));
   }
 }

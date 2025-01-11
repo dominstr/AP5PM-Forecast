@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Oblíbené
+      Oblíbená města
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,7 +9,31 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Oblíbené</ion-title>
+      <ion-title size="large">Oblíbená města</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <ng-container *ngIf="weatherDetails.length > 0; else noFavourites">
+    <ion-list>
+      <ion-item *ngFor="let weather of weatherDetails">
+        <ion-img [src]="weather.icon_url"></ion-img>
+        <ion-label>
+          <h2>{{ weather.city }}</h2>
+          <p>Počasí: {{ weather.description }}</p>
+          <p>Teplota: {{ weather.temp }} °C</p>
+          <p>Rychlost větru: {{ weather.wind_speed }} m/s</p>
+        </ion-label>
+        <ion-button slot="end" (click)="removeFavouriteCity(weather.city)">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+  </ng-container>
+
+  <ng-template #noFavourites>
+    <ion-item lines="none">
+      <ion-label>Žádná oblíbená města</ion-label>
+    </ion-item>
+  </ng-template>
+
 </ion-content>

@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewChecked, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { environment } from './../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { WeatherInfoComponent } from '../weather-info/weather-info.component';
@@ -15,7 +15,7 @@ const API_KEY = environment.API_KEY;
   standalone: true,
   imports: [CommonModule, IonicModule, WeatherInfoComponent]
 })
-export class HomePage implements OnInit, AfterViewChecked{
+export class HomePage{
   @ViewChild(WeatherInfoComponent) weatherInfoComponent!: WeatherInfoComponent;
   homeCity: string = '';
   weatherData: any;
@@ -25,23 +25,22 @@ export class HomePage implements OnInit, AfterViewChecked{
     console.log("Domovské město: " + this.homeCity);
   }
   
-  ngOnInit() {
+  ionViewWillEnter() {
+    this.loadWeatherData();
+  }
+
+  loadWeatherData() {
+    this.homeCity = localStorage.getItem('homeCity') || 'Zlín';
     this.httpClient.get(`${API_URL}weather?q=${this.homeCity}&appid=${API_KEY}&units=metric&lang=cz`)
       .subscribe((response) => {
         console.log(response);
         this.weatherData = response;
+        if (this.weatherInfoComponent) {
+          this.weatherInfoComponent.weatherData(this.weatherData);
+          this.cdr.detectChanges(); // Manually trigger change detection
+        }
       }, (error) => {
         console.error('Chyba při vyhledávání města:', error);
       });
   }
-
-  ngAfterViewChecked() {
-    if (this.weatherData && this.weatherInfoComponent) {
-      console.log(this.weatherData);
-      this.weatherInfoComponent.weatherData(this.weatherData);
-      this.weatherData = null;
-      this.cdr.detectChanges(); // Manually trigger change detection
-    }
-  }
-
 }

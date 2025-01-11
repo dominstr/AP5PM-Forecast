@@ -13,7 +13,7 @@
 
   <ion-item>
     <ion-label position="floating">Název města</ion-label>
-    <ion-input [(ngModel)]="cityName" placeholder="Zadejte název města" (keyup.enter)="searchCity()"></ion-input>
+    <ion-input [(ngModel)]="searchCityName" placeholder="Zadejte název města" (keyup.enter)="searchCity()"></ion-input>
   </ion-item>
   <ion-button expand="full" (click)="searchCity()">Hledat</ion-button>
 
