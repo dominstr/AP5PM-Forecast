@@ -5,6 +5,7 @@ import { WeatherInfoComponent } from '../weather-info/weather-info.component';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 const API_URL = environment.API_URL;
 const API_KEY = environment.API_KEY;
@@ -19,18 +20,17 @@ const API_KEY = environment.API_KEY;
 export class SearchPage implements AfterViewChecked {
   @ViewChild(WeatherInfoComponent) weatherInfoComponent!: WeatherInfoComponent;
   searchCityName: string = '';
+  searchedCityName: string = '';
   responseCityName: string = '';
   showWeatherInfo: boolean = false;
   weatherData: any;
 
-  constructor(private httpClient: HttpClient, private cdr: ChangeDetectorRef) {
+  constructor(private httpClient: HttpClient, private cdr: ChangeDetectorRef, private router: Router) {
   }
 
   ngAfterViewChecked(): void {
     if (this.weatherData && this.weatherInfoComponent) {
-      this.weatherInfoComponent.weatherData(this.weatherData);
-      this.weatherData = null;  // Reset weatherData to prevent multiple calls
-      this.cdr.detectChanges(); // Manually trigger change detection
+      this.weatherInfoComponent.weatherData = this.weatherData;
     }
   }
 
@@ -46,6 +46,7 @@ export class SearchPage implements AfterViewChecked {
         this.weatherData = response;
         this.showWeatherInfo = true;
         this.responseCityName = this.weatherData.name;
+        this.searchedCityName = this.responseCityName;
       }, (error) => {
         console.error('Chyba při vyhledávání města:', error);
         this.showWeatherInfo = false;
@@ -66,5 +67,9 @@ export class SearchPage implements AfterViewChecked {
     console.log(`Nastavit ${this.responseCityName} jako domovské město`);
     localStorage.setItem('homeCity', this.responseCityName);
     console.log(localStorage.getItem('homeCity'));
+  }
+
+  openCityWeather(searchedCityName: string) {
+    this.router.navigate(['/city-details', { city: searchedCityName }]);
   }
 }

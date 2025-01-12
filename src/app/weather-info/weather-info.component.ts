@@ -29,7 +29,7 @@ export class WeatherInfoComponent {
     }
   
     get wind_speed(): number {
-      return this.weatherData?.wind.speed;
+      return Math.round(this.weatherData?.wind.speed);
     }
   
     get wind_deg(): number {
@@ -84,5 +84,9 @@ export class WeatherInfoComponent {
         } else {
             return '';
         }
+    }
+
+    capitalizeFirstLetter(text: string): string {
+      return text.charAt(0).toUpperCase() + text.slice(1);
     }
 }

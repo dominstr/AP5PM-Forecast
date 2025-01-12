@@ -1,5 +1,5 @@
-import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, ViewChild, ChangeDetectorRef} from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from './../../environments/environment';
 import { CommonModule } from '@angular/common';
@@ -17,19 +17,23 @@ const API_KEY = environment.API_KEY;
   standalone: true,
   imports: [CommonModule, IonicModule, WeatherInfoComponent, WeatherForecastComponent]
 })
-export class CityDetailsPage {
+export class CityDetailsPage{
   @ViewChild(WeatherInfoComponent) weatherInfoComponent!: WeatherInfoComponent;
   detailedCity: string = '';
   weatherData: any;
   forecastData: any;
+  defaultHref: string = '';
 
-  constructor(private route: ActivatedRoute, private httpClient: HttpClient, private cdr: ChangeDetectorRef) { }
+  constructor(private route: ActivatedRoute, private httpClient: HttpClient, private cdr: ChangeDetectorRef, private router: Router) { }
 
   ionViewWillEnter() {
     this.detailedCity = this.route.snapshot.paramMap.get('city') || '';
+    this.defaultHref = this.router.getCurrentNavigation()?.previousNavigation?.finalUrl?.toString() || '/tabs/search';
     this.loadWeatherData();
     console.log("Detail města: " + this.detailedCity);
     this.loadForecastData();
+
+    console.log(this.router.getCurrentNavigation());
   }
 
   loadWeatherData() {

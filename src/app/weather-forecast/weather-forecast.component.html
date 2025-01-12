@@ -1,21 +1,21 @@
 <div class="swiper-container" *ngIf="forecastData">
-  <div class="swiper-wrapper">
-    <div class="swiper-slide" *ngFor="let forecast of forecastData.list">
-      <ion-card>
-        <ion-item>
-          <ion-img [src]="'https://openweathermap.org/img/wn/' + forecast.weather[0].icon + '@2x.png'"></ion-img>
-          <ion-label>
-            <h2>{{ formatDate(forecast.dt_txt) }}</h2>
-            <p class="capitalize">{{ forecast.weather[0].description }}</p>
-            <p>Teplota: {{ round(forecast.main.temp) }} °C</p>
-            <p>Tlak: {{ forecast.main.pressure }} hPa</p>
-            <p>Vlhkost: {{ forecast.main.humidity }} %</p>
-            <p>Rychlost větru: {{ round(forecast.wind.speed) }} m/s</p>
-          </ion-label>
-        </ion-item>
-      </ion-card>
+    <div class="swiper-wrapper">
+      <div class="swiper-slide" *ngFor="let forecast of forecastData.list">
+        <ion-card>
+          <ion-item>
+            <ion-img [src]="'https://openweathermap.org/img/wn/' + forecast.weather[0].icon + '@2x.png'"></ion-img>
+            <ion-label>
+              <h2>{{ formatDate(forecast.dt_txt) }}</h2>
+              <p>{{ capitalizeFirstLetter(forecast.weather[0].description) }}</p>
+              <p>Teplota: {{ round(forecast.main.temp) }}&nbsp;°C</p>
+              <p>Tlak: {{ forecast.main.pressure }}&nbsp;hPa</p>
+              <p>Vlhkost: {{ forecast.main.humidity }}&nbsp;%</p>
+              <p>Rychlost větru: {{ round(forecast.wind.speed) }}&nbsp;m/s</p>
+            </ion-label>
+          </ion-item>
+        </ion-card>
+      </div>
     </div>
+    <!-- Add Pagination if needed -->
+    <div class="swiper-pagination"></div>
   </div>
-  <!-- Add Pagination if needed -->
-  <div class="swiper-pagination"></div>
-</div>

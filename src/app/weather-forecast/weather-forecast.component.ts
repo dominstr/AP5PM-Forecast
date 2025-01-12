@@ -17,7 +17,7 @@ export class WeatherForecastComponent implements AfterViewInit {
   swiperConfig: SwiperOptions = {
     direction: 'horizontal',
     slidesPerView: 'auto',
-    spaceBetween: 10,
+    spaceBetween: 0,
     pagination: {
       el: '.swiper-pagination',
       clickable: true,
@@ -40,5 +40,9 @@ export class WeatherForecastComponent implements AfterViewInit {
 
   round(value: number): number {
     return Math.round(value);
+  }
+
+  capitalizeFirstLetter(text: string): string {
+    return text.charAt(0).toUpperCase() + text.slice(1);
   }
 }

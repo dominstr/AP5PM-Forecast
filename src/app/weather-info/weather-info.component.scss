@@ -1,3 +1,32 @@
-h2 {
-    text-transform: capitalize;
-}
+:host {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+  }
+  
+  ion-card {
+    box-shadow: none; /* Remove shadow if needed */
+    width: 100%; /* Adjust as needed */
+    max-width: 300px; /* Adjust as needed */
+  }
+  
+  ion-item {
+    --ion-item-background: transparent; /* Remove default background from ion-item */
+    display: flex;
+    align-items: center;
+    width: auto; /* Set width to auto to fit content */
+    min-width: 0; /* Ensure min-width is 0 */
+  }
+  
+  ion-img {
+    width: 50px; /* Adjust as needed */
+    height: 50px;
+    margin-right: 10px; /* Add space between image and text */
+  }
+  
+  ion-label {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+  }

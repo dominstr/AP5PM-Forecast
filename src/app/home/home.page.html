@@ -11,11 +11,8 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-card>
-    <ion-item lines="none">
-    </ion-item>
-    <app-weather-info [weatherData]="weatherData"></app-weather-info>
-  </ion-card>
+  <app-weather-info [weatherData]="weatherData"></app-weather-info>
+
   <ng-container *ngIf="forecastData">
     <app-weather-forecast [forecastData]="forecastData"></app-weather-forecast>
   </ng-container>

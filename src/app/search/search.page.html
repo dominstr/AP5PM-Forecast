@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Vyhledat město</ion-title>
+    <ion-title class="center">Vyhledat město</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -10,7 +10,8 @@
       <ion-title size="large">search</ion-title>
     </ion-toolbar>
   </ion-header>
-
+  
+  <div class="center-content">
   <ion-item>
     <ion-label position="floating">Název města</ion-label>
     <ion-input [(ngModel)]="searchCityName" placeholder="Zadejte název města" (keyup.enter)="searchCity()"></ion-input>
@@ -18,7 +19,7 @@
   <ion-button expand="full" (click)="searchCity()">Hledat</ion-button>
 
   <ng-container *ngIf="showWeatherInfo">
-    <p>{{searchCityName}}</p>
+    <p class="center">{{searchedCityName}}</p>
     <app-weather-info [weatherData]="weatherData"></app-weather-info>
     <ion-item>
       <ion-button (click)="addToFavorites()">
@@ -27,7 +28,11 @@
       <ion-button (click)="setHomeCity()">
         <ion-icon slot="icon-only" name="home"></ion-icon>
       </ion-button>
+      <ion-button (click)="openCityWeather(searchedCityName)">
+        <ion-icon slot="icon-only" name="podium"></ion-icon>
+      </ion-button>
     </ion-item>
   </ng-container>
+  </div>
 
 </ion-content>

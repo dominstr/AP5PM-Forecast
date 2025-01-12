@@ -2,15 +2,15 @@
   <ion-item>
     <ion-img [src]="icon_url"></ion-img>
     <ion-label>
-      <h2>{{ description }}</h2>
-      <p>Teplota: {{ temp }} °C</p>
-      <p>Pocitová teplota: {{ feels_like }} °C</p>
-      <p>Nejnižší teplota: {{ temp_min }} °C</p>
-      <p>Nejvyšší teplota: {{ temp_max }} °C</p>
-      <p>Tlak: {{ pressure }} hPa</p>
-      <p>Vlhkost: {{ humidity }} %</p>
-      <p>Rychlost větru: {{ wind_speed }} m/s</p>
-      <p>Směr větru: {{ wind_deg }}° ({{ wind_direction }})</p>
+      <p>{{ capitalizeFirstLetter(description) }}</p>
+      <p>Teplota: {{ temp }}&nbsp;°C</p>
+      <p>Pocitová teplota: {{ feels_like }}&nbsp;°C</p>
+      <p>Nejnižší denní teplota: {{ temp_min }}&nbsp;°C</p>
+      <p>Nejvyšší denní teplota: {{ temp_max }}&nbsp;°C</p>
+      <p>Tlak: {{ pressure }}&nbsp;hPa</p>
+      <p>Vlhkost: {{ humidity }}&nbsp;%</p>
+      <p>Rychlost větru: {{ wind_speed }}&nbsp;m/s</p>
+      <p>Směr větru: {{ wind_deg }}°&nbsp;({{ wind_direction }})</p>
     </ion-label>
   </ion-item>
 </ion-card>

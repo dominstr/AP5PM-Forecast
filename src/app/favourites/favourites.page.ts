@@ -1,9 +1,11 @@
-import { Component} from '@angular/core';
+import { Component, ViewChild} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { environment } from './../../environments/environment';
 import { Router } from '@angular/router';
+import { NavigationService } from '../services/navigation.service';
+import { IonItemSliding, ToastController } from '@ionic/angular';
 
 const API_URL = environment.API_URL;
 const API_KEY = environment.API_KEY;
@@ -18,10 +20,11 @@ const API_ICON_EXT = '@2x.png';
   imports: [CommonModule, IonicModule]
 })
 export class FavouritesPage {
+  @ViewChild(IonItemSliding) itemSliding!: IonItemSliding;
   favouriteCities: string[] = [];
   weatherDetails: any[] = [];
 
-  constructor(private httpClient: HttpClient, private router: Router) { }
+  constructor(private httpClient: HttpClient, private router: Router, private navigationService: NavigationService) { }
 
   ionViewWillEnter() {
     this.loadFavouriteCities();
@@ -48,7 +51,7 @@ export class FavouritesPage {
         .subscribe((response: any) => {
           this.weatherDetails.push({
             city: city,
-            description: response.weather[0].description,
+            description: this.capitalizeFirstLetter(response.weather[0].description),
             temp: Math.round(response.main.temp),
             wind_speed: Math.round(response.wind.speed),
             icon_url: `${API_ICON_URL}${response.weather[0].icon}${API_ICON_EXT}`
@@ -59,9 +62,14 @@ export class FavouritesPage {
 
   setHomeCity(city: string) {
     localStorage.setItem('homeCity', city);
+    this.itemSliding.closeOpened();
   }
 
   openCityWeather(city: string) {
-    this.router.navigate(['/tabs/city-details', { city: city }]);
+    this.router.navigate(['/city-details', { city: city }]);
+  }
+
+  capitalizeFirstLetter(text: string): string {
+    return text.charAt(0).toUpperCase() + text.slice(1);
   }
 }
