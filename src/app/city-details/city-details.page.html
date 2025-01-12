@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/favourites"></ion-back-button>
+      <ion-back-button defaultHref="/tabs/favourites"></ion-back-button>
     </ion-buttons>
     <ion-title>{{ detailedCity }}</ion-title>
   </ion-toolbar>
@@ -16,5 +16,9 @@
 
   <ng-container *ngIf="weatherData">
     <app-weather-info [weatherData]="weatherData"></app-weather-info>
+  </ng-container>
+
+  <ng-container *ngIf="forecastData">
+    <app-weather-forecast [forecastData]="forecastData"></app-weather-forecast>
   </ng-container>
 </ion-content>

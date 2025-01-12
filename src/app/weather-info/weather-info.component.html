@@ -1,40 +1,16 @@
-<ion-item>
-    <ion-icon name="location"></ion-icon>
-    <span>{{cityName}}</span>
-</ion-item>
-
-<ion-item>
+<ion-card *ngIf="weatherData">
+  <ion-item>
     <ion-img [src]="icon_url"></ion-img>
-</ion-item>
-
-<ion-item>
-    <span>Počasí: {{description}}</span>
-</ion-item>
-
-<ion-item>
-    <span>Teplota: {{temp}} °C</span>
-</ion-item>
-
-<ion-item>
-    <span>Nejnižší denní teplota: {{temp_min}} °C</span>
-</ion-item>
-
-<ion-item>
-    <span>Nejvyšší denní teplota: {{temp_max}} °C</span>
-</ion-item>
-
-<ion-item>
-    <span>Tlak: {{pressure}} hPa</span>
-</ion-item>
-
-<ion-item>
-    <span>Vlhkost vzduchu: {{humidity}} %</span>
-</ion-item>
-
-<ion-item>
-    <span>Rychlost větru: {{wind_speed}} m/s</span>
-</ion-item>
-
-<ion-item>
-    <span>Směr větru: {{wind_deg}}° => {{wind_direction}}</span>
-</ion-item>
+    <ion-label>
+      <h2>{{ description }}</h2>
+      <p>Teplota: {{ temp }} °C</p>
+      <p>Pocitová teplota: {{ feels_like }} °C</p>
+      <p>Nejnižší teplota: {{ temp_min }} °C</p>
+      <p>Nejvyšší teplota: {{ temp_max }} °C</p>
+      <p>Tlak: {{ pressure }} hPa</p>
+      <p>Vlhkost: {{ humidity }} %</p>
+      <p>Rychlost větru: {{ wind_speed }} m/s</p>
+      <p>Směr větru: {{ wind_deg }}° ({{ wind_direction }})</p>
+    </ion-label>
+  </ion-item>
+</ion-card>

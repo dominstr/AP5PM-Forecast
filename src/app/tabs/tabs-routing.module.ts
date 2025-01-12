@@ -23,6 +23,10 @@ const routes: Routes = [
         path: '',
         redirectTo: '/tabs/home',
         pathMatch: 'full'
+      },
+      {
+        path: 'city-details',
+        loadChildren: () => import('../city-details/city-details.module').then(m => m.CityDetailsPageModule)
       }
     ]
   },

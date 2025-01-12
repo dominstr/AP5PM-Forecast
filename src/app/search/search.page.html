@@ -18,7 +18,8 @@
   <ion-button expand="full" (click)="searchCity()">Hledat</ion-button>
 
   <ng-container *ngIf="showWeatherInfo">
-    <app-weather-info></app-weather-info>
+    <p>{{searchCityName}}</p>
+    <app-weather-info [weatherData]="weatherData"></app-weather-info>
     <ion-item>
       <ion-button (click)="addToFavorites()">
         <ion-icon slot="icon-only" name="star"></ion-icon>

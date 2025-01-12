@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Domovská stránka</ion-title>
+    <ion-title> {{ homeCity }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -13,12 +13,11 @@
 
   <ion-card>
     <ion-item lines="none">
-      <p>Domovské město</p>
     </ion-item>
-    <app-weather-info></app-weather-info>
+    <app-weather-info [weatherData]="weatherData"></app-weather-info>
   </ion-card>
+  <ng-container *ngIf="forecastData">
+    <app-weather-forecast [forecastData]="forecastData"></app-weather-forecast>
+  </ng-container>
 
-
-
-    
 </ion-content>

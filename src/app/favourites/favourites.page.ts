@@ -38,6 +38,7 @@ export class FavouritesPage {
   removeFavouriteCity(city: string) {
     this.favouriteCities = this.favouriteCities.filter(c => c !== city);
     localStorage.setItem('favouriteCities', JSON.stringify(this.favouriteCities));
+    this.loadWeatherDetails();
   }
 
   loadWeatherDetails() {

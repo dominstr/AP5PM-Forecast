@@ -1,0 +1,44 @@
+.swiper-container {
+    width: 100%;
+    height: auto; // Přizpůsobí se obsahu
+  }
+  
+  .swiper-wrapper {
+    display: flex;
+  }
+  
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;// Automatická šířka podle obsahu, můžete nastavit fixní šířku např. 300px
+    padding: 10px; // Volitelné, přidává prostor kolem každého slidu
+  }
+  
+  ion-card {
+    width: 100%; // Upravte podle potřeby, aby karta vyplnila dostupné místo
+    max-width: 300px; // Nastavte maximální šířku, aby byla karta čitelná a dobře vypadala
+  }
+  
+  ion-item {
+    --ion-item-background: transparent; // Odstraní výchozí pozadí IonItem, pokud je potřeba
+    display: flex;
+    align-items: center;
+  }
+  
+  ion-img {
+    width: 50px; // Nastavte velikost ikonky podle potřeby
+    height: 50px;
+    margin-right: 10px; // Přidá mezeru mezi obrázkem a textem
+  }
+  
+  ion-label {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+  }
+
+  .capitalize {
+    text-transform: capitalize;
+  }

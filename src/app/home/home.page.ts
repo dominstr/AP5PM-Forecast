@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { WeatherInfoComponent } from '../weather-info/weather-info.component';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
+import { WeatherForecastComponent } from '../weather-forecast/weather-forecast.component';
 
 const API_URL = environment.API_URL;
 const API_KEY = environment.API_KEY;
@@ -13,12 +14,13 @@ const API_KEY = environment.API_KEY;
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [CommonModule, IonicModule, WeatherInfoComponent]
+  imports: [CommonModule, IonicModule, WeatherInfoComponent, WeatherForecastComponent]
 })
 export class HomePage{
   @ViewChild(WeatherInfoComponent) weatherInfoComponent!: WeatherInfoComponent;
   homeCity: string = '';
   weatherData: any;
+  forecastData: any;
 
   constructor(public httpClient: HttpClient, private cdr: ChangeDetectorRef) {
     this.homeCity = localStorage.getItem('homeCity') || 'Zlín';
@@ -27,6 +29,7 @@ export class HomePage{
   
   ionViewWillEnter() {
     this.loadWeatherData();
+    this.loadForecastData();
   }
 
   loadWeatherData() {
@@ -36,11 +39,21 @@ export class HomePage{
         console.log(response);
         this.weatherData = response;
         if (this.weatherInfoComponent) {
-          this.weatherInfoComponent.weatherData(this.weatherData);
+          this.weatherInfoComponent.weatherData = this.weatherData;
           this.cdr.detectChanges(); // Manually trigger change detection
         }
       }, (error) => {
         console.error('Chyba při vyhledávání města:', error);
       });
+  }
+
+  loadForecastData() {
+    this.httpClient.get(`${API_URL}forecast?q=${this.homeCity}&appid=${API_KEY}&units=metric&lang=cz`)
+    .subscribe((responseForecast) => {
+      console.log(responseForecast);
+      this.forecastData = responseForecast;
+    }, (error) => {
+      console.error('Chyba při vyhledávání města:', error);
+    });
   }
 }
